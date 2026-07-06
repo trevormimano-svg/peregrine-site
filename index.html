@@ -30,13 +30,12 @@
     --gold:#D4A24A; --bronze:#A16E22; --signal:#BE1E2D;
     --btnbg:#07182A; --btnfg:#F3F0E7;
   }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --field:#0B0D10; --panel:#14171C; --rule:#242A33; --hairline:#1B2027;
-      --ink:#E9EBEE; --ink2:#B7BDC6; --dim:#8B94A1;
-      --gold:#E8A33D; --bronze:#D4A24A;
-      --btnbg:#E8A33D; --btnfg:#0B0D10;
-    }
+  /* Light is the DEFAULT (Trevor 2026-07-06); dark is opt-in via the nav toggle only */
+  html[data-theme="dark"]{
+    --field:#0B0D10; --panel:#14171C; --rule:#242A33; --hairline:#1B2027;
+    --ink:#E9EBEE; --ink2:#B7BDC6; --dim:#8B94A1;
+    --gold:#E8A33D; --bronze:#D4A24A;
+    --btnbg:#E8A33D; --btnfg:#0B0D10;
   }
   *{box-sizing:border-box} html{scroll-behavior:smooth}
   body{font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--field);color:var(--ink);margin:0;line-height:1.6}
@@ -52,7 +51,11 @@
   nav .brand{display:flex;align-items:center;gap:11px;font-family:Newsreader,Georgia,serif;font-weight:600;font-size:20px;color:var(--ink);text-decoration:none}
   nav .brand img{height:34px;width:auto}
   .mark-light{display:inline-block} .mark-dark{display:none}
-  @media (prefers-color-scheme: dark){ .mark-light{display:none} .mark-dark{display:inline-block} }
+  html[data-theme="dark"] .mark-light{display:none} html[data-theme="dark"] .mark-dark{display:inline-block}
+  .theme-toggle{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:6px 10px;font-size:14px;border-radius:2px;cursor:pointer;line-height:1}
+  .navright{display:flex;align-items:center;gap:10px}
+  .tricolor{height:3px;background:linear-gradient(90deg,var(--ink) 0 34%,var(--gold) 34% 67%,var(--signal) 67% 100%)}
+  .vstar{color:var(--signal)}
   .hero{padding:56px 0 48px;position:relative;overflow:hidden}
   .hero:before{content:"";position:absolute;inset:0;background:
     linear-gradient(var(--hairline) 1px,transparent 1px) 0 0/100% 76px,
@@ -63,7 +66,7 @@
   .hero p.lead{font-size:17.5px;color:var(--ink2);margin:0 0 28px;max-width:640px}
   .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
   .tblock{border:1.5px solid var(--ink);display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:40px;background:rgba(255,255,255,.25)}
-  @media (prefers-color-scheme: dark){ .tblock{background:rgba(255,255,255,.03)} }
+  html[data-theme="dark"] .tblock{background:rgba(255,255,255,.03)}
   .tblock>div{border-right:1px solid var(--ink);padding:8px 12px}
   .tblock>div:last-child{border-right:0}
   .tblock span{display:block;font-size:9px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;margin-bottom:2px}
@@ -78,7 +81,7 @@
   .card:after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0}
   .card img{height:34px;width:auto;margin-bottom:10px}
   .card img.mark-dark{display:none}
-  @media (prefers-color-scheme: dark){ .card img.mark-light{display:none} .card img.mark-dark{display:block} }
+  html[data-theme="dark"] .card img.mark-light{display:none} html[data-theme="dark"] .card img.mark-dark{display:block}
   .card h3{font-family:Newsreader,Georgia,serif;font-weight:600;color:var(--ink);margin:0 0 6px;font-size:18px}
   .card p{margin:0;font-size:14px;color:var(--ink2)}
   table{width:100%;border-collapse:collapse;font-size:14.5px}
@@ -116,7 +119,10 @@
         <img class="mark-dark" src="assets/marks/inverse_head.png" alt="Peregrine falcon mark">
         Peregrine
       </a>
-      <a class="btn" href="https://cal.com/peregrine-solutions-group/60min">Book a Strategy Call</a>
+      <div class="navright">
+        <a class="btn" href="https://cal.com/peregrine-solutions-group/60min">Book a Strategy Call</a>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9681;</button>
+      </div>
     </nav>
     <div class="hero">
       <span class="label">Engineer-led · Fixed-price · Independent of any assessor</span>
@@ -136,6 +142,7 @@
     </div>
   </div>
 </header>
+<div class="tricolor" aria-hidden="true"></div>
 
 <section>
   <div class="wrap">
@@ -191,7 +198,7 @@
       <li><b>Fast, fixed-price.</b> A purpose-built system generates your full readiness package in days. <a href="assets/Vantage_Readiness_Report_SAMPLE.pdf">See a sample package</a> — synthetic client, real format.</li>
       <li><b>Independent.</b> No assessment arm — no conflict. We route you to a C3PAO with open capacity.</li>
       <li><b>Local to the Carolinas, available nationally.</b> Based in the Charlotte metro (Mooresville area). In-person strategy sessions available for NC-based contractors. Remote delivery everywhere else.</li>
-      <li><b>Veteran-owned</b> (SDVOSB certification pending). Led by a 2025 BEYA Modern-Day Technology Leader and senior cloud-security engineer. CAGE 9ZEH9, SAM.gov active. <a href="verify/">Verify every claim →</a></li>
+      <li><span class="vstar" aria-hidden="true">&#9733;</span> <b>Veteran-owned</b> (SDVOSB certification pending). Led by a 2025 BEYA Modern-Day Technology Leader and senior cloud-security engineer. CAGE 9ZEH9, SAM.gov active. <a href="verify/">Verify every claim →</a></li>
     </ul>
   </div>
 </section>
@@ -228,10 +235,11 @@
   </div>
 </section>
 
+<div class="tricolor" aria-hidden="true"></div>
 <footer>
   <div class="wrap">
     <p><b style="color:var(--ink)">Peregrine Solutions Group LLC</b> — CMMC Level 2 readiness for the Defense Industrial Base. Charlotte metro / Mooresville, NC.<br>
-    <a href="mailto:trevor@peregrinesolutionsgroup.com">trevor@peregrinesolutionsgroup.com</a> · peregrinesolutionsgroup.com · CAGE 9ZEH9 · Veteran-owned (SDVOSB pending) · <a href="verify/">Verify our claims</a></p>
+    <a href="mailto:trevor@peregrinesolutionsgroup.com">trevor@peregrinesolutionsgroup.com</a> · peregrinesolutionsgroup.com · CAGE 9ZEH9 · <span class="vstar" aria-hidden="true">&#9733;</span> Veteran-owned (SDVOSB pending) · <a href="verify/">Verify our claims</a></p>
     <p class="notice">This site captures general inquiry metadata only. Do not submit CUI, FCI, or controlled technical information.</p>
   </div>
 </footer>
@@ -243,6 +251,20 @@
     var days = Math.ceil((new Date('2026-11-10T00:00:00-05:00') - Date.now()) / 86400000);
     if (days > 0) el.textContent = ' — ' + days + ' days out';
   })();
+</script>
+<script>
+(function(){
+  if(localStorage.getItem('peregrine-theme')==='dark')
+    document.documentElement.setAttribute('data-theme','dark');
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('themeToggle'); if(!b) return;
+    b.addEventListener('click',function(){
+      var d=document.documentElement.getAttribute('data-theme')==='dark';
+      if(d){document.documentElement.removeAttribute('data-theme');localStorage.setItem('peregrine-theme','light');}
+      else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('peregrine-theme','dark');}
+    });
+  });
+})();
 </script>
 </body>
 </html>
