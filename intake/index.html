@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peregrine — CMMC Readiness Intake</title>
+<style>
+  :root { --navy:#1B2A4A; --gold:#C4953A; --light:#F5F3EE; --gray:#888; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#333; margin:0; background:#fafafa; }
+  header { background:var(--navy); color:#fff; padding:22px 28px; }
+  header .brand { color:var(--gold); font-weight:700; letter-spacing:1px; font-size:13px; }
+  header h1 { margin:6px 0 0; font-size:22px; font-weight:600; }
+  header p { margin:6px 0 0; font-size:13px; opacity:.85; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 20px 90px; }
+  .notice { background:#FFF8E1; border-left:4px solid var(--gold); padding:12px 16px; font-size:13px; margin:18px 0; border-radius:4px; }
+  fieldset { border:1px solid #ddd; border-radius:8px; margin:18px 0; padding:8px 18px 18px; background:#fff; }
+  legend { color:var(--navy); font-weight:700; font-size:15px; padding:0 8px; }
+  .field { margin:14px 0; }
+  label { display:block; font-weight:600; font-size:13px; margin-bottom:4px; }
+  label .req { color:#C62828; }
+  .hint { color:var(--gray); font-size:12px; margin:2px 0 6px; }
+  input[type=text], textarea, select { width:100%; padding:9px 10px; border:1px solid #ccc; border-radius:5px; font-size:14px; font-family:inherit; }
+  input:focus, textarea:focus, select:focus { outline:none; border-color:var(--gold); box-shadow:0 0 0 2px rgba(196,149,58,.2); }
+  textarea { min-height:64px; resize:vertical; }
+  .missing { border-color:#C62828 !important; background:#FFEBEE; }
+  .bar { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #ddd; padding:12px 20px; display:flex; gap:12px; align-items:center; justify-content:center; }
+  button { background:var(--navy); color:#fff; border:0; padding:11px 22px; border-radius:6px; font-size:14px; font-weight:600; cursor:pointer; }
+  button.gold { background:var(--gold); }
+  #status { font-size:13px; color:var(--gray); }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">PEREGRINE SOLUTIONS GROUP</div>
+  <h1>CMMC Level 2 Readiness — Client Intake</h1>
+  <p>NIST SP 800-171 Rev 2 · Scoping &amp; environment questionnaire</p>
+</header>
+<div class="wrap">
+  <div class="notice">
+    <b>Do not enter CUI.</b> This form captures system and configuration <b>metadata only</b>
+    (tools, roles, boundary). Do NOT paste actual Controlled Unclassified Information — no file
+    contents, scan outputs, network diagrams, or controlled technical data. Fields you don't know
+    yet can be left blank; we'll collect them during the assessment.
+  </div>
+  <form id="intakeForm"></form>
+</div>
+<div class="bar">
+  <span id="status">Fill the form, then download the intake file.</span>
+  <button type="button" class="gold" onclick="downloadJSON()">Download Intake (JSON)</button>
+</div>
+
+<script>
+// Canonical field set — labels MUST match the engine's intake reader exactly.
+const FIELDS = [
+  ["Organization & System", [
+    ["Organization Name", true, "text", "Legal business name."],
+    ["System Name / Title", true, "text", "Name of the in-scope information system / CUI enclave."],
+    ["System Unique Identifier", false, "text", "Optional; auto-generated if blank."],
+    ["General System Purpose", true, "textarea", "What the system does and why it handles CUI."],
+    ["Number of End Users", true, "text", "Total user count."],
+    ["Number of Privileged Users", false, "text", "Admins / elevated accounts."],
+    ["Privileged User Roles", false, "text", "e.g., Domain Admin, Security Admin, Backup Operator."],
+    ["Number of Facilities", false, "text", "Physical sites in scope."],
+    ["FIPS 199 — Confidentiality", false, "fips", "Impact level."],
+    ["FIPS 199 — Integrity", false, "fips", "Impact level."],
+    ["FIPS 199 — Availability", false, "fips", "Impact level."]
+  ]],
+  ["Key Personnel", [
+    ["System Owner (Name / Title)", true, "text", ""],
+    ["System Security Officer / ISSO (Name / Title)", true, "text", ""],
+    ["ISSO Organization", false, "text", "Internal or outsourced (e.g., your firm)."],
+    ["IT Manager / IT Lead (Name / Title)", true, "text", ""],
+    ["HR Contact (Name / Title)", true, "text", ""],
+    ["Facilities Contact (Name / Title)", false, "text", ""]
+  ]],
+  ["Service Providers & Government", [
+    ["MSP / MSSP Name (if applicable)", false, "text", "Managed IT/security provider, if any."],
+    ["MSP Contact (Name / Email)", false, "text", ""],
+    ["Government CUI Point of Contact", true, "text", "Prime/agency contact for CUI flow-down."],
+    ["Gov POC Title / Organization", false, "text", ""],
+    ["Gov POC Email", false, "text", ""],
+    ["Prime Contractor(s)", true, "text", "Primes you sub to (comma-separated)."]
+  ]],
+  ["Technology Stack", [
+    ["Identity Provider", true, "text", "e.g., Microsoft Entra ID (GCC High), Okta."],
+    ["Cloud Platform", true, "text", "e.g., Microsoft 365 GCC High, AWS GovCloud."],
+    ["EDR / Antivirus", true, "text", "e.g., Microsoft Defender for Endpoint."],
+    ["SIEM / Log Management", true, "text", "e.g., Microsoft Sentinel, Splunk."],
+    ["Firewall / Network Security", true, "text", "e.g., Fortinet FortiGate, Palo Alto."],
+    ["VPN Solution", true, "text", "e.g., FortiClient, Cisco AnyConnect."],
+    ["MFA Method", true, "text", "e.g., Microsoft Authenticator (phishing-resistant)."],
+    ["Endpoint Management", true, "text", "e.g., Microsoft Intune, Jamf."],
+    ["Endpoint OS", false, "text", "e.g., Windows 11 Enterprise, macOS."],
+    ["Endpoint Encryption", true, "text", "e.g., BitLocker (FIPS mode), FileVault."],
+    ["ERP / Business System", false, "text", "e.g., Epicor, Deltek."],
+    ["Backup Solution", false, "text", "e.g., Azure Backup, Veeam."],
+    ["Vulnerability Scanner", false, "text", "e.g., Tenable Nessus, Qualys."],
+    ["Wireless Authentication", false, "text", "e.g., WPA2/3-Enterprise (EAP-TLS)."]
+  ]],
+  ["CUI Handling (metadata only — no CUI content)", [
+    ["CUI Types Handled", true, "text", "e.g., Controlled Technical Information (CTI). Category names only."],
+    ["CUI Marking Categories Used", false, "text", "e.g., CUI//SP-CTI."],
+    ["How is CUI Identified / Labeled?", false, "textarea", "Process for marking/labeling."],
+    ["Remote workers accessing CUI?", false, "text", "Approximate %."],
+    ["CNC/OT Vendors", false, "text", "e.g., Haas, Mazak CNC."],
+    ["CNC Network Segmented?", false, "text", "Yes/No + brief note."]
+  ]]
+];
+
+const form = document.getElementById("intakeForm");
+FIELDS.forEach(function (group) {
+  const section = group[0], fields = group[1];
+  const fs = document.createElement("fieldset");
+  const lg = document.createElement("legend"); lg.textContent = section; fs.appendChild(lg);
+  fields.forEach(function (f) {
+    const label = f[0], req = f[1], type = f[2], hint = f[3];
+    const wrap = document.createElement("div"); wrap.className = "field";
+    const lab = document.createElement("label"); lab.textContent = label;
+    if (req) { const s = document.createElement("span"); s.className = "req"; s.textContent = " *"; lab.appendChild(s); }
+    wrap.appendChild(lab);
+    if (hint) { const h = document.createElement("div"); h.className = "hint"; h.textContent = hint; wrap.appendChild(h); }
+    let inp;
+    if (type === "textarea") { inp = document.createElement("textarea"); }
+    else if (type === "fips") {
+      inp = document.createElement("select");
+      ["", "Low", "Moderate", "High"].forEach(function (o) {
+        const op = document.createElement("option"); op.value = o; op.textContent = o || "— select —"; inp.appendChild(op);
+      });
+    } else { inp = document.createElement("input"); inp.type = "text"; }
+    inp.dataset.field = label;
+    inp.dataset.req = req ? "1" : "0";
+    wrap.appendChild(inp); fs.appendChild(wrap);
+  });
+  form.appendChild(fs);
+});
+
+function collect() {
+  const data = {}; let missing = 0;
+  document.querySelectorAll("[data-field]").forEach(function (el) {
+    const v = (el.value || "").trim();
+    data[el.dataset.field] = v;
+    el.classList.remove("missing");
+    if (el.dataset.req === "1" && !v) { el.classList.add("missing"); missing++; }
+  });
+  return { data: data, missing: missing };
+}
+
+function downloadJSON() {
+  const r = collect();
+  const status = document.getElementById("status");
+  status.textContent = r.missing > 0
+    ? (r.missing + " required field(s) still blank (highlighted). You can still download; they'll show as gaps.")
+    : "All required fields complete. Downloading…";
+  const org = (r.data["Organization Name"] || "Client").replace(/[^A-Za-z0-9]/g, "_").slice(0, 30);
+  const blob = new Blob([JSON.stringify(r.data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = org + "_intake.json";
+  a.click();
+}
+</script>
+</body>
+</html>
