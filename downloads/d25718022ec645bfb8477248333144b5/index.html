@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- DELIVERY PAGE TEMPLATE — deployed to /downloads/<token>/index.html by deploy_site.sh
+     (token from products/career_ops_config.json; zip beside it is ALWAYS a fresh
+     release_career_ops_kit.py artifact). Reached only via Stripe after-payment redirect
+     or a colleagues link Trevor hands out. noindex by design. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Your Career-Ops Kit — download</title>
+<link rel="icon" href="/assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--field:#F3F0E7;--panel:#EAE6D8;--rule:#D3CCB9;--ink:#07182A;--ink2:#3C4A5E;--dim:#6E6B5E;--gold:#D4A24A;--bronze:#A16E22;--signal:#BE1E2D}
+  html[data-theme="dark"]{--field:#0B0D10;--panel:#14171C;--rule:#242A33;--ink:#E9EBEE;--ink2:#B7BDC6;--dim:#8B94A1;--gold:#E8A33D;--bronze:#D4A24A}
+  *{box-sizing:border-box}
+  body{font-family:Inter,sans-serif;background:var(--field);color:var(--ink);margin:0;line-height:1.65}
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+  .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+  h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:34px;margin:40px 0 14px}
+  p{color:var(--ink2);font-size:15.5px}
+  .tricolor{height:3px;background:linear-gradient(90deg,var(--ink) 0 34%,var(--gold) 34% 67%,var(--signal) 67% 100%)}
+  header{border-bottom:1.5px solid var(--ink);padding:16px 0}
+  header .brand{display:flex;align-items:center;gap:11px;font-family:Newsreader,Georgia,serif;font-weight:600;font-size:20px;color:var(--ink);text-decoration:none;max-width:640px;margin:0 auto;padding:0 20px}
+  header img{height:32px}
+  a.btn{display:inline-block;background:var(--ink);color:var(--field);text-decoration:none;padding:14px 28px;border-radius:2px;font-size:15px;font-weight:600;margin:10px 0}
+  .code{font-family:'IBM Plex Mono',monospace;background:var(--panel);border:1px solid var(--rule);padding:2px 8px;font-size:13.5px}
+  .card{background:var(--panel);border:1px solid var(--ink);padding:20px;margin:22px 0;font-size:14.5px;color:var(--ink2)}
+  ol li{margin:8px 0;color:var(--ink2);font-size:15px}
+  footer{border-top:1px solid var(--rule);color:var(--dim);font-size:12.5px;padding:20px 0;margin-top:44px}
+</style>
+</head>
+<body>
+<header><a class="brand" href="/"><img src="/assets/marks/master_head.png" alt="Peregrine falcon mark">Peregrine</a></header>
+<div class="tricolor" aria-hidden="true"></div>
+<div class="wrap">
+  <span class="label" style="display:block;margin-top:36px">Delivery</span>
+  <h1>Your Career-Ops Kit.</h1>
+  <p>Thanks — and welcome to running your search like an operation.</p>
+  <a class="btn" href="career-ops-kit.zip" download>Download career-ops-kit.zip</a>
+  <ol>
+    <li>Unzip it somewhere permanent (e.g. <span class="code">Desktop/career-ops-kit/</span>).</li>
+    <li>Read <span class="code">README.md</span> — it's short and it's the map.</li>
+    <li>Open Claude and say:
+      <span class="code">"Read career-ops-kit/skills/career-ops-setup/SKILL.md and run the setup."</span></li>
+    <li>Answer the 15-minute interview honestly — everything downstream is built from it.</li>
+  </ol>
+  <div class="card">
+    <b>License:</b> personal, single-user. Don't redistribute this download link or the zip —
+    if the kit helps someone you know, point them to us instead.
+    <b>Requirements:</b> Claude (Claude Code or any Claude with file access) + Python 3.10+.
+    <b>The fine print</b> ships in the kit's DISCLAIMER.md: it prepares, you decide and send;
+    no guarantees; your employer's policies and every platform's terms are yours to keep.
+  </div>
+  <p style="font-size:13.5px;color:var(--dim)">Save this page's address — it's your re-download
+  link. Bought Done-With-You? Reply to your Stripe receipt or email
+  trevor@peregrinesolutionsgroup.com to schedule the 90-minute session.</p>
+</div>
+<footer><div class="wrap">Peregrine Solutions Group LLC · peregrinesolutionsgroup.com</div></footer>
+</body>
+</html>

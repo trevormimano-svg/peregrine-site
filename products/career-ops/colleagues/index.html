@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- GOOD-CAUSE TRACK — NOT IN DEPLOY SET until products/career_ops_config.json
+     colleagues_live=true (flips only on Trevor's express approval; can precede the
+     commercial track — sharing, not selling — but never precedes the release-gate scrub).
+     Unlinked from all nav; reached only by the link/code Trevor hands out. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Career-Ops Kit — for colleagues</title>
+<meta name="description" content="A note and a toolkit from someone who cares about your next chapter.">
+<link rel="icon" href="../../../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --field:#F3F0E7; --panel:#EAE6D8; --rule:#D3CCB9;
+    --ink:#07182A; --ink2:#3C4A5E; --dim:#6E6B5E; --gold:#D4A24A; --bronze:#A16E22; --signal:#BE1E2D;
+  }
+  /* Light is the DEFAULT (BRAND_QUICKREF theme rule); dark is opt-in via the header toggle only */
+  html[data-theme="dark"]{--field:#0B0D10; --panel:#14171C; --rule:#242A33; --ink:#E9EBEE; --ink2:#B7BDC6; --dim:#8B94A1; --gold:#E8A33D; --bronze:#D4A24A}
+  *{box-sizing:border-box}
+  body{font-family:Inter,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--field);color:var(--ink);margin:0;line-height:1.65}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+  h1,h2{font-family:Newsreader,Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  header{border-bottom:1.5px solid var(--ink);padding:16px 0}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;max-width:720px}
+  header .brand{display:flex;align-items:center;gap:11px;font-family:Newsreader,Georgia,serif;font-weight:600;font-size:20px;color:var(--ink);text-decoration:none}
+  header img{height:32px}
+  .mark-light{display:inline-block}.mark-dark{display:none}
+  html[data-theme="dark"] .mark-light{display:none} html[data-theme="dark"] .mark-dark{display:inline-block}
+  .theme-toggle{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:6px 10px;font-size:14px;border-radius:2px;cursor:pointer;line-height:1}
+  .tricolor{height:3px;background:linear-gradient(90deg,var(--ink) 0 34%,var(--gold) 34% 67%,var(--signal) 67% 100%)}
+  h1{font-size:36px;line-height:1.1;margin:40px 0 18px}
+  h1 em{font-style:italic;color:var(--bronze)}
+  p{font-size:16px;color:var(--ink2)}
+  .asks li{margin:12px 0;font-size:15.5px;color:var(--ink2)}
+  .card{background:var(--panel);border:1px solid var(--ink);position:relative;padding:22px;margin:28px 0}
+  .card:before,.card:after{content:"";position:absolute;width:8px;height:8px;border-color:var(--bronze);border-style:solid}
+  .card:before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px}
+  .card:after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0}
+  .card h2{margin:0 0 8px;font-size:20px}
+  .card p{font-size:14.5px;margin:8px 0}
+  .code{font-family:'IBM Plex Mono',monospace;background:var(--field);border:1px solid var(--rule);padding:2px 8px}
+  footer{border-top:1.5px solid var(--ink);color:var(--ink2);font-size:13px;padding:24px 0;margin-top:48px}
+  footer a{color:var(--bronze)}
+  .vstar{color:var(--signal)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img class="mark-light" src="../../../assets/marks/master_head.png" alt="Peregrine falcon mark">
+      <img class="mark-dark" src="../../../assets/marks/inverse_head.png" alt="Peregrine falcon mark">
+      Peregrine
+    </a>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9681;</button>
+  </div>
+</header>
+<div class="tricolor" aria-hidden="true"></div>
+
+<div class="wrap">
+  <span class="label" style="display:block;margin-top:36px">For colleagues &middot; no charge, no catch</span>
+  <h1>Someone who cares about your next chapter <em>sent you this.</em></h1>
+
+  <p>Probably because the job market is brutal, layoffs are arbitrary, and doing this alone is
+  exhausting.</p>
+
+  <p>Here's what this is: a system the builder uses himself, every day, to run his own job search
+  like an operation instead of a doom-scroll. An AI assistant (Claude) does the tedious 95% &mdash;
+  finding roles that actually fit, scoring them against criteria you set, tailoring your resume to
+  each posting without ever inventing anything, drafting the networking messages you keep meaning
+  to send &mdash; and you do the 5% that should stay human: deciding, and clicking send.</p>
+
+  <p>What it will never do: apply on your behalf, message anyone as you, or put a skill on your
+  resume that you didn't attest. That's not a limitation &mdash; it's why your applications will
+  read like you, and not like the bot-spam recruiters are drowning in.</p>
+
+  <h2 style="margin-top:36px">What it asks of you</h2>
+  <ul class="asks">
+    <li><b>One honest hour up front.</b> The setup interview asks for your real achievements with
+      real numbers. Don't rush it &mdash; everything the system produces is built from those answers.</li>
+    <li><b>Ten minutes a day.</b> Review what it queued, submit what you agree with. Speed matters:
+      fresh applications get seen.</li>
+    <li><b>Twenty minutes a week.</b> Send the five networking drafts. Real names, real hooks &mdash;
+      these outperform every job board.</li>
+  </ul>
+
+  <div class="card">
+    <h2>Get your copy</h2>
+    <p>Use the personal link or access code that came with the note that brought you here &mdash;
+    it gets you the full kit, free. This page is deliberately unlisted; the kit is shared
+    person-to-person, not sold to a list.</p>
+    <p>Then: unzip it somewhere permanent, open Claude, and say
+    <span class="code">"Read career-ops-kit/skills/career-ops-setup/SKILL.md and run the setup."</span>
+    Start with README.md &mdash; it's short. You need Claude and Python 3.10+.</p>
+    <p style="color:var(--dim);font-size:13px">Everything runs and stays on your machine. Nothing
+    is uploaded anywhere. If you pass it on, share a fresh copy from the original zip &mdash; never
+    your <span class="mono">config/</span> folder (that's your personal data).</p>
+  </div>
+
+  <p>You've got this. The system just makes sure the effort you're already spending lands where
+  it counts.</p>
+</div>
+
+<div class="tricolor" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">
+    <p><b style="color:var(--ink)">Peregrine Solutions Group LLC</b> &middot;
+    <a href="mailto:trevor@peregrinesolutionsgroup.com">trevor@peregrinesolutionsgroup.com</a> &middot;
+    <span class="vstar" aria-hidden="true">&#9733;</span> Veteran-owned (SDVOSB pending)</p>
+    <p style="font-size:12px;color:var(--dim)">Provided as-is; not career or legal advice. You own
+    every submission and your compliance with employer policies and platform terms.</p>
+  </div>
+</footer>
+<script>
+(function(){
+  if(localStorage.getItem('peregrine-theme')==='dark')
+    document.documentElement.setAttribute('data-theme','dark');
+  document.addEventListener('DOMContentLoaded',function(){
+    var b=document.getElementById('themeToggle'); if(!b) return;
+    b.addEventListener('click',function(){
+      var d=document.documentElement.getAttribute('data-theme')==='dark';
+      if(d){document.documentElement.removeAttribute('data-theme');localStorage.setItem('peregrine-theme','light');}
+      else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('peregrine-theme','dark');}
+    });
+  });
+})();
+</script>
+</body>
+</html>
