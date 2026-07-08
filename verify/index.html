@@ -5,48 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Verify Our Claims — Peregrine Solutions Group</title>
 <meta name="description" content="Every public claim Peregrine Solutions Group makes, with the federal registry or source that proves it. Verify us before you trust us with your compliance.">
-<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script defer data-domain="peregrinesolutionsgroup.com" src="https://plausible.io/js/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/peregrine.css">
 <style>
-  :root{
-    --field:#F3F0E7; --panel:#EAE6D8; --rule:#D3CCB9;
-    --ink:#07182A; --ink2:#3C4A5E; --dim:#6E6B5E; --gold:#D4A24A; --bronze:#A16E22; --signal:#BE1E2D;
-  }
-  /* Light is the DEFAULT (Trevor 2026-07-06); dark is opt-in via the header toggle only */
-  html[data-theme="dark"]{--field:#0B0D10; --panel:#14171C; --rule:#242A33; --ink:#E9EBEE; --ink2:#B7BDC6; --dim:#8B94A1; --gold:#E8A33D; --bronze:#D4A24A}
-  *{box-sizing:border-box}
-  body{font-family:Inter,sans-serif;background:var(--field);color:var(--ink);margin:0;line-height:1.6}
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-  .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
-  header{border-bottom:1.5px solid var(--ink);padding:16px 0}
-  header .brand{display:flex;align-items:center;gap:11px;font-family:Newsreader,Georgia,serif;font-weight:600;font-size:20px;color:var(--ink);text-decoration:none}
-  header img{height:32px}
-  .mark-light{display:inline-block}.mark-dark{display:none}
-  html[data-theme="dark"] .mark-light{display:none} html[data-theme="dark"] .mark-dark{display:inline-block}
-  .theme-toggle{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:6px 10px;font-size:14px;border-radius:2px;cursor:pointer;line-height:1}
-  .tricolor{height:3px;background:linear-gradient(90deg,var(--ink) 0 34%,var(--gold) 34% 67%,var(--signal) 67% 100%)}
+  .wrap{max-width:880px}
   header .wrap{display:flex;justify-content:space-between;align-items:center}
-  h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:40px;margin:34px 0 10px}
+  h1{margin:34px 0 10px}
   .lead{color:var(--ink2);max-width:640px;margin-bottom:34px}
-  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0 40px}
-  th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:var(--field);text-align:left;padding:11px 12px}
-  td{padding:13px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+  table{margin:10px 0 40px}
   td a{color:var(--bronze)}
-  .mono{font-family:'IBM Plex Mono',monospace;font-size:13px}
   .note{font-size:13px;color:var(--dim);border-top:1px solid var(--rule);padding:16px 0 40px;max-width:680px}
-  footer{border-top:1.5px solid var(--ink);color:var(--ink2);font-size:13px;padding:24px 0}
-  footer a{color:var(--bronze)}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="brand" href="/">
-      <img class="mark-light" src="assets/marks/master_head.png" alt="Peregrine falcon mark">
-      <img class="mark-dark" src="assets/marks/inverse_head.png" alt="Peregrine falcon mark">
+      <img class="mark-light" src="/assets/marks/master_head.png" alt="Peregrine falcon mark">
+      <img class="mark-dark" src="/assets/marks/inverse_head.png" alt="Peregrine falcon mark">
       Peregrine
     </a>
     <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9681;</button>
@@ -72,12 +51,12 @@
     </tr>
     <tr>
       <td>Unique Entity ID (UEI)</td>
-      <td class="mono">DZACXHZ4NCP5</td>
+      <td class="mono"><span class="copy" title="Click to copy">DZACXHZ4NCP5</span></td>
       <td><a href="https://sam.gov/search/" rel="noopener">SAM.gov entity search</a></td>
     </tr>
     <tr>
       <td>CAGE code</td>
-      <td class="mono">9ZEH9</td>
+      <td class="mono"><span class="copy" title="Click to copy">9ZEH9</span></td>
       <td><a href="https://cage.dla.mil/" rel="noopener">DLA CAGE search</a></td>
     </tr>
     <tr>
@@ -109,6 +88,15 @@
   if(localStorage.getItem('peregrine-theme')==='dark')
     document.documentElement.setAttribute('data-theme','dark');
   document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.copy').forEach(function(el){
+      el.addEventListener('click',function(){
+        var v=el.textContent.trim();
+        function done(){el.classList.add('copied');setTimeout(function(){el.classList.remove('copied')},1600);}
+        function legacy(){var ta=document.createElement('textarea');ta.value=v;ta.style.position='fixed';ta.style.opacity='0';
+          document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}
+        if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(done,legacy);}else{legacy();}
+      });
+    });
     var b=document.getElementById('themeToggle'); if(!b) return;
     b.addEventListener('click',function(){
       var d=document.documentElement.getAttribute('data-theme')==='dark';
